@@ -1,14 +1,12 @@
 import fastapi
-import httpx
 import uvicorn
-import uuid
-import os
 import config
 from Controllers import MovieMetadataController
 
 
 app = fastapi.FastAPI()
 
+#including the routers within MovieMetadataController to app
 app.include_router(MovieMetadataController.router)
 
 
