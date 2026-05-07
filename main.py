@@ -1,14 +1,15 @@
 import fastapi
 import uvicorn
 import config
-from Controllers import MovieMetadataController
+from Routers import StorageRouter
+from Routers import MetadataRouter
 
 
-app = fastapi.FastAPI()
+app = fastapi.FastAPI(redirect_slashes=False)
 
 #including the routers within MovieMetadataController to app
-app.include_router(MovieMetadataController.router)
-
+app.include_router(StorageRouter.router)
+app.include_router(MetadataRouter.router)
 
 #without this, uvicorn runs at import time causing errors
 if __name__ == "__main__":

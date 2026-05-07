@@ -1,7 +1,8 @@
 
 #10.0.0.16 is temp
 METADATA_URL = "http://10.0.0.36:8080/metadata"
+
 GATEWAY_IP = "10.0.0.16"
 GATEWAY_PORT = 8000
 
-STORAGE_URL = "http://10.0.0.36:8040/storage"
+STORAGE_URL = "http://10.0.0.36:8000"
