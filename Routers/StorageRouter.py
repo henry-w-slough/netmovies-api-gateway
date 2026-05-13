@@ -17,7 +17,5 @@ async def storage_gateway(path:str, request:fastapi.Request):
             content=await request.body(),
             headers={"Content-Type": request.headers.get("Content-Type", "application/json")}
         )    
-          
-    print(response)
 
     return fastapi.Response(content=response.content, status_code=response.status_code, media_type=response.headers.get("content-type"))
