@@ -8,7 +8,6 @@ import config
 router = fastapi.APIRouter(prefix="/metadata")
 
 
-
 @router.api_route("/{path:path}", methods=["GET", "POST", "DELETE"])
 async def metadata_gateway(path:str, request:fastapi.Request):
     
