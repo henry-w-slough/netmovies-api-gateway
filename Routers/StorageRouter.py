@@ -13,7 +13,7 @@ async def storage_gateway(path:str, request:fastapi.Request):
         #the request sent to the .net backend
         response = await http.request(
             method=request.method,
-            url=f"{config.STORAGE_URL}/{path}",
+            url=f"{config.STORAGE_ADDRESS}/{path}",
             content=await request.body(),
             headers={"Content-Type": request.headers.get("Content-Type", "application/json")}
         )    

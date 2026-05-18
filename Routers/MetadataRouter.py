@@ -8,12 +8,14 @@ import config
 router = fastapi.APIRouter(prefix="/metadata")
 
 
+
 @router.api_route("/{path:path}", methods=["GET", "POST", "DELETE"])
 async def metadata_gateway(path:str, request:fastapi.Request):
+    
     async with httpx.AsyncClient() as http:
         response = await http.request(
             method=request.method,
-            url=f"{config.METADATA_URL}/{path}",
+            url=f"{config.METADATA_ADDRESS}/{path}",
             content=await request.body(),
             headers={"Content-Type": request.headers.get("Content-Type", "application/json")}
         )

@@ -5,6 +5,9 @@ import httpx
 
 
 
+#Note that the GEH only handles CONNECTION ERRORS.
+#There is no other use for this exception handler except to handle connection errors to client,
+#It is completely blind to any other error, which is handled in each database and bubbled to the client.
 def register_exception_handlers(app: FastAPI):
     """Adds all exceptions handlers to FastAPI app given including custom exceptions."""
 
@@ -13,17 +16,21 @@ def register_exception_handlers(app: FastAPI):
     async def validation_error(request: Request, exc: RequestValidationError):
         return JSONResponse(status_code=422, content={"error": "The format of the HTTP request received is invalid.", "detail": str(exc)})
     
+
     @app.exception_handler(httpx.ConnectTimeout)
     async def connect_timeout(request: Request, exc: httpx.ConnectTimeout):
         return JSONResponse(status_code=504, content={"error": "Connection with backend timed out before a response was given."})
     
+
     @app.exception_handler(httpx.ReadTimeout)
     async def read_timeout(request: Request, exc: httpx.ReadTimeout):
         return JSONResponse(status_code=504, content={"error": "Backend service took too long to respond."})
 
+
     @app.exception_handler(httpx.ConnectError)
     async def connect_error(request: Request, exc: httpx.ConnectError):
         return JSONResponse(status_code=503, content={"error": "Connection with backend is unreachable.", "detail": str(exc)})
+
 
     @app.exception_handler(Exception)
     async def general_error(request: Request, exc: Exception):
